@@ -1,6 +1,6 @@
-# codemagic_api
+# Codemagic API
 
-A new Flutter project.
+A Flutter app for running builds using Codemagic API
 
 ## Getting Started
 
