@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
 
   Stream<int> _stream() {
     Duration interval = Duration(seconds: 1);
-    Stream<int> stream = Stream<int>.periodic(interval, transform);
+    Stream<int> stream = Stream<int>.periodic(interval, response);
 
     if (_status == 'finished') {
       setState(() {
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
     return stream;
   }
 
-  int transform(int value) {
+  int response(int value) {
     _getResponse();
     return value;
   }
@@ -355,11 +355,6 @@ class _HomePageState extends State<HomePage> {
                 _map[entryList[index].key] = value;
               });
             },
-            onFieldSubmitted: (value) {
-              setState(() {
-                _map[entryList[index].key] = value;
-              });
-            },
             decoration: new InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -369,8 +364,6 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 borderSide: BorderSide(color: Colors.blue, width: 2),
               ),
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
               contentPadding:
                   EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
               hintText: hint,
