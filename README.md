@@ -2,6 +2,16 @@
 
 A Flutter app for running builds using Codemagic API
 
+<p align="center">
+  <img src="https://github.com/sbis04/codemagic_api/raw/master/screenshots/codemagic_app.png" alt="Codemagic API" />
+</p>
+
+## Features
+
+* **Start Build** with supplied software versions
+* Get **Build Status** while it is running
+* **Cancel Build** that is running on Codemagic CI/CD
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
