@@ -1,6 +1,6 @@
-# Codemagic API
+<h1 align="center">Codemagic API</h4>
 
-A Flutter app for running builds using Codemagic API
+<h3 align="center">A Flutter app for running builds using Codemagic API</h4>
 
 <p align="center">
   <img src="https://github.com/sbis04/codemagic_api/raw/master/screenshots/codemagic_app.png" alt="Codemagic API" />
