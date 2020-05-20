@@ -2,9 +2,9 @@
 
 A Flutter app for running builds using Codemagic API
 
-<!-- <p align="center">
+<p align="center">
   <img src="https://github.com/sbis04/codemagic_api/raw/master/screenshots/codemagic_app.png" alt="Codemagic API" />
-</p> -->
+</p>
 
 ## Features
 
