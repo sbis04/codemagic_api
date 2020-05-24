@@ -41,6 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   double loginSheetHeight = 20;
 
   String _apiToken;
+  bool _isTapped;
 
   double _screenHeight;
 
@@ -77,6 +78,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
+
+    _isTapped = false;
 
     textAnimationController =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
@@ -261,25 +264,42 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                         child: SizedBox(
                                           height: 50,
                                           width: 50,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.arrow_forward_ios,
-                                              color: Colors.white,
-                                            ),
-                                            iconSize: 20,
-                                            splashColor: Colors.orange,
-                                            onPressed: () async {
-                                              dynamic codemagicInfo =
-                                                  await _getApps();
-                                              if (codemagicInfo != null)
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Dashboard(codemagicInfo),
+                                          child: _isTapped
+                                              ? CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    Colors.orange[100],
                                                   ),
-                                                );
-                                            },
-                                          ),
+                                                )
+                                              : IconButton(
+                                                  icon: Icon(
+                                                    Icons.arrow_forward_ios,
+                                                    color: Colors.white,
+                                                  ),
+                                                  iconSize: 20,
+                                                  splashColor: Colors.orange,
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      _isTapped = true;
+                                                    });
+                                                    dynamic codemagicInfo =
+                                                        await _getApps();
+                                                    setState(() {
+                                                      _isTapped = false;
+                                                    });
+                                                    if (codemagicInfo != null)
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Dashboard(
+                                                            codemagicInfo,
+                                                          ),
+                                                        ),
+                                                      );
+                                                  },
+                                                ),
                                         ),
                                       ),
                                     ],
