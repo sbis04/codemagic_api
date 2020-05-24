@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:codemagic_api/api_details.dart';
+import 'package:codemagic_api/dashboard.dart';
+import 'package:codemagic_api/secrets.dart';
+import 'package:codemagic_api/util.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +20,284 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: WelcomeScreen(),
+    );
+  }
+}
+
+class WelcomeScreen extends StatefulWidget {
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController textAnimationController;
+  Animation<double> animation;
+
+  Dio _dio;
+
+  bool circularProgressIndicatorVisibility = true;
+  double loginSheetHeight = 20;
+
+  String _apiToken;
+
+  double _screenHeight;
+
+  // Only retrieves the apps build with Codemagic once
+  Future<dynamic> _getApps() async {
+    BaseOptions options = new BaseOptions(
+        baseUrl: 'https://api.codemagic.io',
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": Secrets.apiToken,
+        });
+
+    _dio = new Dio(options);
+
+    try {
+      Response response = await _dio.get(
+        "/apps",
+      );
+      if (response.statusCode == 200) {
+        print(response.data);
+        final codemagicInfo = applicationsFromJson(response.data);
+        return codemagicInfo;
+
+        // print(codemagicInfo.applications[2].appName);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    textAnimationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+
+    animation =
+        Tween<double>(begin: 0, end: -50).animate(textAnimationController)
+          ..addListener(() {
+            setState(() {});
+          });
+
+    Timer(Duration(seconds: 4), () {
+      switch (textAnimationController.status) {
+        case AnimationStatus.completed:
+          textAnimationController.reverse();
+          break;
+        case AnimationStatus.dismissed:
+          textAnimationController.forward();
+          break;
+        default:
+      }
+      setState(() {
+        circularProgressIndicatorVisibility = false;
+        print("screenheight: " + _screenHeight.toString());
+      });
+      setState(() {
+        loginSheetHeight = 150;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 15,
+                left: 15,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Transform.translate(
+                    offset: Offset(0, animation.value),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: screenWidth * 0.5,
+                          child: Image.asset('assets/codemagic_logo.jpg'),
+                        ),
+                        Text(
+                          'Welcome To',
+                          style: GoogleFonts.satisfy(
+                            fontSize: 25,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Codemagic Connect'.toUpperCase(),
+                          style: GoogleFonts.rubik(
+                            fontSize: 30,
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                      visible: circularProgressIndicatorVisibility,
+                      child: SizedBox(
+                        height: _screenHeight * 0.2,
+                      )),
+                  Visibility(
+                    visible: circularProgressIndicatorVisibility,
+                    replacement: Container(),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.orange[900],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedContainer(
+                curve: Curves.easeIn,
+                duration: Duration(seconds: 1),
+                height: loginSheetHeight,
+                color: Colors.transparent,
+                child: Card(
+                  margin: EdgeInsets.all(0),
+                  elevation: 5,
+                  color: Colors.orange[900],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: SizedBox(
+                    width: screenWidth * 0.95,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Access Token',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 20.0,
+                                    left: 10.0,
+                                    right: 10.0,
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        width: screenWidth * 0.95 - 100,
+                                        child: TextFormField(
+                                          cursorColor: Colors.orange[800],
+                                          obscureText: true,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _apiToken = value;
+                                            });
+                                          },
+                                          decoration: new InputDecoration(
+                                            filled: true,
+                                            fillColor: Colors.orange[50],
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(30.0),
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.grey[400],
+                                                width: 2,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(30.0),
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.orange[300],
+                                                width: 4,
+                                              ),
+                                            ),
+                                            contentPadding: EdgeInsets.all(15),
+                                            hintText:
+                                                'Enter Codemagic API token',
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.orange[100],
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(50.0),
+                                          ),
+                                        ),
+                                        child: SizedBox(
+                                          height: 50,
+                                          width: 50,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Colors.white,
+                                            ),
+                                            iconSize: 20,
+                                            splashColor: Colors.orange,
+                                            onPressed: () async {
+                                              dynamic codemagicInfo =
+                                                  await _getApps();
+                                              if (codemagicInfo != null)
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Dashboard(codemagicInfo),
+                                                  ),
+                                                );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
