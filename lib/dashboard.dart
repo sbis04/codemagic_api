@@ -1,3 +1,4 @@
+import 'package:codemagic_api/build_config_screen.dart';
 import 'package:codemagic_api/util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -96,68 +97,78 @@ class _DashboardState extends State<Dashboard> {
                               right: 10.0,
                               bottom: 15.0,
                             ),
-                            child: InkWell(
-                              splashColor: Colors.orange,
-                              onTap: () {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.all(
-                                      color: Colors.orange, width: 3),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(50.0),
+                            child: Material(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(50),
+                                splashColor: Colors.orangeAccent,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => BuildConfigScreen(widget.codemagicInfo),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: Colors.orange, width: 3),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(50.0),
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                        radius: 44,
-                                        backgroundColor: Colors.blue,
-                                        child: CircleAvatar(
-                                          backgroundColor: Colors.white,
-                                          radius: 40,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Image.network(
-                                              applications[index].iconUrl,
-                                              fit: BoxFit.contain,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        CircleAvatar(
+                                          radius: 44,
+                                          backgroundColor: Colors.blue,
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            radius: 40,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Image.network(
+                                                applications[index].iconUrl,
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
+                                            // backgroundImage: NetworkImage(
+                                            //   applications[index].iconUrl,
+                                            // ),
                                           ),
-                                          // backgroundImage: NetworkImage(
-                                          //   applications[index].iconUrl,
-                                          // ),
                                         ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              applications[index].appName,
-                                              style: GoogleFonts.varelaRound(
-                                                fontSize: 20,
+                                        SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                applications[index].appName,
+                                                style: GoogleFonts.varelaRound(
+                                                  fontSize: 20,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(height: 8.0),
-                                            Text(
-                                              applications[index]
-                                                  .repository
-                                                  .htmlUrl
-                                                  .substring(8),
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                fontSize: 16,
-                                                color: Colors.black45,
+                                              SizedBox(height: 8.0),
+                                              Text(
+                                                applications[index]
+                                                    .repository
+                                                    .htmlUrl
+                                                    .substring(8),
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  fontSize: 16,
+                                                  color: Colors.black45,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
