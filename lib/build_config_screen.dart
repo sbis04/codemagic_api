@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BuildConfigScreen extends StatelessWidget {
-  final CodemagicInfo codemagicInfo;
-  BuildConfigScreen(this.codemagicInfo);
+  final Application application;
+  BuildConfigScreen(this.application);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BuildConfigScreen extends StatelessWidget {
                   children: <Widget>[
                     Align(
                       alignment: Alignment.centerLeft,
-                                          child: BackButton(
+                      child: BackButton(
                         color: Colors.white,
                         onPressed: () => Navigator.of(context).pop(),
                       ),
@@ -84,7 +84,27 @@ class BuildConfigScreen extends StatelessWidget {
                   )
                 ],
               ),
-              child: Container(),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      application.appName,
+                      style: GoogleFonts.varelaRound(
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      application.repository.htmlUrl.substring(8),
+                      style: GoogleFonts.robotoCondensed(
+                        fontSize: 16,
+                        color: Colors.black45,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           )
         ],

@@ -104,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => BuildConfigScreen(widget.codemagicInfo),
+                                      builder: (context) => BuildConfigScreen(applications[index]),
                                     ),
                                   );
                                 },
