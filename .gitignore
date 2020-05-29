@@ -45,3 +45,4 @@ app.*.map.json
 # API Secrets
 /lib/secrets.dart
 .metadata
+.vscode/launch.json
