@@ -14,11 +14,25 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
   String _selectedBranch;
   List<String> _branches;
 
+  List<String> _workflowIds = [];
+  List<String> _workflowNames = [];
+  String _selectedWorkflowName;
+
   @override
   void initState() {
     super.initState();
     _branches = widget.application.branches.reversed.toList();
+    _workflowIds = widget.application.workflowIds.reversed.toList();
+
+    Map<String, dynamic> allWorkflowInfo = widget.application.workflows;
+
+    for (String workflowId in _workflowIds) {
+      Map info = allWorkflowInfo['$workflowId'];
+      _workflowNames.add(info['name']);
+    }
+    _workflowNames = _workflowNames.reversed.toList();
     _selectedBranch = _branches[0];
+    _selectedWorkflowName = _workflowNames[0];
   }
 
   @override
@@ -139,6 +153,18 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                       (String value) {
                         setState(() {
                           _selectedBranch = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 15),
+                    _dropDownTile(
+                      'Select Workflow',
+                      _workflowNames,
+                      _selectedWorkflowName,
+                      width,
+                      (String value) {
+                        setState(() {
+                          _selectedWorkflowName = value;
                         });
                       },
                     ),

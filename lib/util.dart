@@ -37,7 +37,7 @@ class Application {
   String lastBuildId;
   Repository repository;
   List<String> workflowIds;
-  Map workflows;
+  Map<String, dynamic> workflows;
 
   Application({
     this.id,
