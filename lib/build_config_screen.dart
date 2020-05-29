@@ -168,6 +168,25 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                         });
                       },
                     ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 30.0, bottom: 5.0),
+                        child: Text(
+                          'ENVIRONMENT VARIBLES',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Text(
+                          '(optional)',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
                     // Padding(
                     //   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     //   child: Column(
