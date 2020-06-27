@@ -225,7 +225,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                           },
                                           decoration: new InputDecoration(
                                             filled: true,
-                                            fillColor: Colors.orange[50],
+                                            fillColor: Colors.white,
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
                                                 Radius.circular(30.0),
