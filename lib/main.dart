@@ -30,8 +30,7 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
-    with SingleTickerProviderStateMixin {
+class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin {
   AnimationController textAnimationController;
   Animation<double> animation;
 
@@ -81,14 +80,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     _isTapped = false;
 
-    textAnimationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    textAnimationController = AnimationController(duration: Duration(seconds: 1));
 
-    animation =
-        Tween<double>(begin: 0, end: -50).animate(textAnimationController)
-          ..addListener(() {
-            setState(() {});
-          });
+    animation = Tween<double>(begin: 0, end: -50).animate(textAnimationController)
+      ..addListener(() {
+        setState(() {});
+      });
 
     Timer(Duration(seconds: 4), () {
       switch (textAnimationController.status) {
@@ -245,8 +242,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                               ),
                                             ),
                                             contentPadding: EdgeInsets.all(15),
-                                            hintText:
-                                                'Enter Codemagic API token',
+                                            hintText: 'Enter Codemagic API token',
                                           ),
                                         ),
                                       ),
@@ -266,9 +262,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                           width: 50,
                                           child: _isTapped
                                               ? CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
+                                                  valueColor: AlwaysStoppedAnimation<Color>(
                                                     Colors.orange[100],
                                                   ),
                                                 )
@@ -283,17 +277,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                                     setState(() {
                                                       _isTapped = true;
                                                     });
-                                                    dynamic codemagicInfo =
-                                                        await _getApps();
+                                                    dynamic codemagicInfo = await _getApps();
                                                     setState(() {
                                                       _isTapped = false;
                                                     });
                                                     if (codemagicInfo != null)
-                                                      Navigator.of(context)
-                                                          .push(
+                                                      Navigator.of(context).push(
                                                         MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Dashboard(
+                                                          builder: (context) => Dashboard(
                                                             codemagicInfo,
                                                           ),
                                                         ),
@@ -471,9 +462,7 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _status = 'Initializing';
         });
-        if (_map['token'] != null &&
-            _map['appId'] != null &&
-            _map['workflowId'] != null)
+        if (_map['token'] != null && _map['appId'] != null && _map['workflowId'] != null)
           _postData();
         else {
           print('Required parameters are not supplied');
@@ -481,8 +470,7 @@ class _HomePageState extends State<HomePage> {
       },
       color: Colors.blue,
       child: Padding(
-        padding: const EdgeInsets.only(
-            left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
+        padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
         child: Text(
           'START BUILD',
           style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -553,8 +541,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: _isBuilding ? _cancelBuild : null,
               color: Colors.red,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
+                padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0, bottom: 10.0),
                 child: Text(
                   'CANCEL',
                   style: TextStyle(color: Colors.white, fontSize: 20.0),
@@ -579,8 +566,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 10.0, bottom: 40),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 40),
             child: Column(
               children: <Widget>[
                 for (int i = 0; i < 4; i++)
@@ -667,8 +653,7 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 borderSide: BorderSide(color: Colors.blue, width: 2),
               ),
-              contentPadding:
-                  EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+              contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
               hintText: hint,
             ),
           ),

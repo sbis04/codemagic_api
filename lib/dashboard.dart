@@ -32,7 +32,7 @@ class _DashboardState extends State<Dashboard> {
           children: <Widget>[
             Container(
               color: Colors.orange[800],
-              height: height * 0.20,
+              height: height * 0.22,
               width: double.maxFinite,
               child: SafeArea(
                 child: Center(
@@ -66,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: height * 0.85,
+                height: height * 0.84,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -116,16 +116,14 @@ class _DashboardState extends State<Dashboard> {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  BuildConfigScreen(
-                                                      applications[index]),
+                                                  BuildConfigScreen(applications[index]),
                                             ),
                                           );
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Colors.transparent,
-                                            border: Border.all(
-                                                color: Colors.orange, width: 3),
+                                            border: Border.all(color: Colors.orange, width: 3),
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(50.0),
                                             ),
@@ -138,16 +136,12 @@ class _DashboardState extends State<Dashboard> {
                                                   radius: 44,
                                                   backgroundColor: Colors.blue,
                                                   child: CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.white,
+                                                    backgroundColor: Colors.white,
                                                     radius: 40,
                                                     child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              12.0),
+                                                      padding: const EdgeInsets.all(12.0),
                                                       child: Image.network(
-                                                        applications[index]
-                                                            .iconUrl,
+                                                        applications[index].iconUrl,
                                                         fit: BoxFit.contain,
                                                       ),
                                                     ),
@@ -159,15 +153,11 @@ class _DashboardState extends State<Dashboard> {
                                                 SizedBox(width: 10),
                                                 Expanded(
                                                   child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: <Widget>[
                                                       Text(
-                                                        applications[index]
-                                                            .appName,
-                                                        style: GoogleFonts
-                                                            .varelaRound(
+                                                        applications[index].appName,
+                                                        style: GoogleFonts.varelaRound(
                                                           fontSize: 20,
                                                         ),
                                                       ),
@@ -177,8 +167,7 @@ class _DashboardState extends State<Dashboard> {
                                                             .repository
                                                             .htmlUrl
                                                             .substring(8),
-                                                        style: GoogleFonts
-                                                            .robotoCondensed(
+                                                        style: GoogleFonts.robotoCondensed(
                                                           fontSize: 16,
                                                           color: Colors.black45,
                                                         ),
@@ -206,7 +195,7 @@ class _DashboardState extends State<Dashboard> {
                           return LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.center,
-                            colors: <Color>[Colors.white, Colors.transparent],
+                            // colors: <Color>[Colors.white, Colors.transparent],
                           ).createShader(bounds);
                         },
                         child: Container(

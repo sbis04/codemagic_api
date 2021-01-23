@@ -41,6 +41,26 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+            bottom: 30.0,
+            left: 8.0,
+            right: 8.0,
+          ),
+          child: Container(
+            child: Text(
+              'START',
+              style: GoogleFonts.rubik(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: Container(
         height: height,
         child: Stack(
@@ -50,7 +70,7 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
             ),
             Container(
               color: Colors.orange[800],
-              height: height * 0.20,
+              height: height * 0.22,
               width: double.maxFinite,
               child: SafeArea(
                 child: Padding(
@@ -97,7 +117,7 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: height * 0.85,
+                height: height * 0.84,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -147,8 +167,7 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                                   SizedBox(height: 8.0),
                                   // TODO: URL Launcher for GitHub Link
                                   Text(
-                                    widget.application.repository.htmlUrl
-                                        .substring(8),
+                                    widget.application.repository.htmlUrl.substring(8),
                                     style: GoogleFonts.robotoCondensed(
                                       fontSize: 16,
                                       color: Colors.black45,
@@ -191,13 +210,10 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                               ),
                               Center(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30.0, bottom: 5.0),
+                                  padding: const EdgeInsets.only(top: 30.0, bottom: 5.0),
                                   child: Text(
                                     'ENVIRONMENT VARIBLES',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
@@ -244,7 +260,7 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                           return LinearGradient(
                             begin: Alignment.topCenter,
                             end: Alignment.center,
-                            colors: <Color>[Colors.white, Colors.transparent],
+                            // colors: <Color>[Colors.white, Colors.transparent],
                           ).createShader(bounds);
                         },
                         child: Container(
@@ -297,8 +313,7 @@ class _BuildConfigScreenState extends State<BuildConfigScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   borderSide: BorderSide(color: Colors.blue, width: 3),
                 ),
-                contentPadding:
-                    EdgeInsets.only(left: 15, bottom: 25, top: 25, right: 15),
+                contentPadding: EdgeInsets.only(left: 15, bottom: 25, top: 25, right: 15),
                 hintText: hint,
               ),
             ),
